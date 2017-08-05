@@ -2,7 +2,10 @@ package demo.domain;
 
 import lombok.Data;
 
+import javax.persistence.Embeddable;
+
 @Data
+@Embeddable
 public class UnitInfo {
 
     private final String runningId;

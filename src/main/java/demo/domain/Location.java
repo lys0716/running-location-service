@@ -1,9 +1,10 @@
 package demo.domain;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "RUNNING_LOCATIONS")
 public class Location {
     enum GpsStatus{
         EXCELLENT, OK, UNRELIABLE, BAD, NOFIX, UNKNOWN;
@@ -17,10 +18,19 @@ public class Location {
         }
     }
 
+    @Id
+    @GeneratedValue
     private Long id;
 
+    @Embedded
+    @AttributeOverride(name = "bandMake", column = @Column(name = "unit_band_make"))
     private final UnitInfo unitInfo;
 
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name= "fmi", column = @Column(name = "medical_fmi")),
+            @AttributeOverride(name= "bfr", column = @Column(name = "medical_bfr"))
+    })
     private MedicalInfo medicalInfo;
 
     private double latitude;
