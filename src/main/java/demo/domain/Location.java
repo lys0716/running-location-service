@@ -1,8 +1,13 @@
 package demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "RUNNING_LOCATIONS")
 public class Location {
@@ -45,11 +50,22 @@ public class Location {
     private double totalIdleTime;
     private double totalCaloriesBurnt;
     private String address;
-    private Date timestamp = new Date;
+    private Date timestamp = new Date();
     private RunnerMovementType runnerMovementType = RunnerMovementType.STOPPED;
     private String serviceType;
 
-    public Location(String runningId) {
+    public Location() {this.unitInfo = null;}
+
+    @JsonCreator
+    public Location(@JsonProperty("runningId") String runningId) {
         this.unitInfo = new UnitInfo(runningId);
+    }
+
+    public Location(UnitInfo unitInfo) {
+        this.unitInfo = unitInfo;
+    }
+
+    public String getRunningId() {
+        return this.unitInfo == null ? null : this.unitInfo.getRunningId();
     }
 }
