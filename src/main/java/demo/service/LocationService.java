@@ -13,5 +13,5 @@ public interface LocationService {
 
     Page<Location> findByRunnerMovementType(String movementType, Pageable pageable);
 
-
+    Page<Location> findByRunningId(String runningId, Pageable pageable);
 }

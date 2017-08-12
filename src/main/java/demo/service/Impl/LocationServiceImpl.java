@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Dependency Injection
+ */
 @Service
 public class LocationServiceImpl implements LocationService{
 
@@ -33,6 +36,11 @@ public class LocationServiceImpl implements LocationService{
     @Override
     public Page<Location> findByRunnerMovementType(String movementType, Pageable pageable) {
         return locationRepository.findByRunnerMovementType(Location.RunnerMovementType.valueOf(movementType), pageable);
+    }
+
+    @Override
+    public Page<Location> findByRunningId(String runningId, Pageable pageable) {
+        return locationRepository.findByUnitInfoRunningId(runningId, pageable);
     }
 }
 
